@@ -1,6 +1,6 @@
-///////////////////////SinWave.java 
-/////////////////生成用于供电的正弦波,
-//公式=1.01-sin(wt)每种android手机数据格式不一样，魅族M9:数据值为1输出正弦波波峰，-1输出正弦波波谷。数据-128和127为正弦波0点，正好与常理相反，由于无法获得手机硬件，原因无法查究
+///////////////////////SinWave.java
+/////////////////脡煤鲁脡脫脙脫脷鹿漏碌莽碌脛脮媒脧脪虏篓,
+//鹿芦脢陆=1.01-sin(wt)脙驴脰脰android脢脰禄煤脢媒戮脻赂帽脢陆虏禄脪禄脩霉拢卢梅脠脳氓M9:脢媒戮脻脰碌脦陋1脢盲鲁枚脮媒脧脪虏篓虏篓路氓拢卢-1脢盲鲁枚脮媒脧脪虏篓虏篓鹿脠隆拢脢媒戮脻-128潞脥127脦陋脮媒脧脪虏篓0碌茫拢卢脮媒潞脙脫毛鲁拢脌铆脧脿路麓拢卢脫脡脫脷脦脼路篓禄帽碌脙脢脰禄煤脫虏录镁拢卢脭颅脪貌脦脼路篓虏茅戮驴
 package com.nxp.HijackU;
 
 import android.content.BroadcastReceiver;
@@ -10,36 +10,36 @@ import android.os.Bundle;
 import android.os.Message;
 import android.widget.Toast;
 
-public class HeadsetDetect extends BroadcastReceiver {  
-		  
+public class HeadsetDetect extends BroadcastReceiver {
+
 	    public static boolean hdflag=false;
-	    @Override  
-	    public void onReceive(Context context, Intent intent) {  
-	          if (intent.hasExtra("state")){  
+	    @Override
+	    public void onReceive(Context context, Intent intent) {
+	          if (intent.hasExtra("state")){
 	               if (intent.getIntExtra("state", 0) == 0){
 	            	   hdflag=false;
 	            	   msg_IC_num(hdflag);
-	                   Toast.makeText(context, "headset not connected", Toast.LENGTH_SHORT).show();  
-	               }  
-	               else if (intent.getIntExtra("state", 0) == 1){ 
-	            	   hdflag=true;  
+	                   Toast.makeText(context, "headset not connected", Toast.LENGTH_SHORT).show();
+	               }
+	               else if (intent.getIntExtra("state", 0) == 1){
+	            	   hdflag=true;
 	            	   msg_IC_num(hdflag);
-	            	   Toast.makeText(context, "headset connected", Toast.LENGTH_SHORT).show();  
-	               }  
-	          }  
-	          
-	 } 
+	            	   Toast.makeText(context, "headset connected", Toast.LENGTH_SHORT).show();
+	               }
+	          }
+
+	 }
 	    /***************************************************
-	     * msg_IC_num 用于发送消息的函数，把string 类型的消息发送到activity进行显示
+	     * msg_IC_num 脫脙脫脷路垄脣脥脧没脧垄碌脛潞炉脢媒拢卢掳脩string 脌脿脨脥碌脛脧没脧垄路垄脣脥碌陆activity陆酶脨脨脧脭脢戮
 	     * @param str
 	     */
-	        public void msg_IC_num(boolean str){//发送系统消息
+	        public void msg_IC_num(boolean str){//路垄脣脥脧碌脥鲁脧没脧垄
 	        	Message msg=new Message();
 	        	Bundle b=new Bundle();
 	        	b.putBoolean("IC_num", hdflag);
 	        	msg.setData(b);
 	        	HijackU.myHDHandler.sendMessage(msg);
 	        }
-	  
-}  
+
+}
 

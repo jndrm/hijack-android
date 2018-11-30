@@ -1,10 +1,10 @@
-///////////////////////SinWave.java 
-/////////////////生成用于供电的正弦波,
-//公式=1.01-sin(wt)每种android手机数据格式不一样，魅族M9:数据值为1输出正弦波波峰，-1输出正弦波波谷。数据-128和127为正弦波0点，正好与常理相反，由于无法获得手机硬件，原因无法查究
+///////////////////////SinWave.java
+/////////////////脡煤鲁脡脫脙脫脷鹿漏碌莽碌脛脮媒脧脪虏篓,
+//鹿芦脢陆=1.01-sin(wt)脙驴脰脰android脢脰禄煤脢媒戮脻赂帽脢陆虏禄脪禄脩霉拢卢梅脠脳氓M9:脢媒戮脻脰碌脦陋1脢盲鲁枚脮媒脧脪虏篓虏篓路氓拢卢-1脢盲鲁枚脮媒脧脪虏篓虏篓鹿脠隆拢脢媒戮脻-128潞脥127脦陋脮媒脧脪虏篓0碌茫拢卢脮媒潞脙脫毛鲁拢脌铆脧脿路麓拢卢脫脡脫脷脦脼路篓禄帽碌脙脢脰禄煤脫虏录镁拢卢脭颅脪貌脦脼路篓虏茅戮驴
 package com.nxp.HijackU;
 
 public class SinWave {
-	/** 正弦波的高度**/
+	/** 脮媒脧脪虏篓碌脛赂脽露脠**/
 	public static final int HEIGHT = 32767;	//16bit
 	/** 2PI**/
 	public static final double TWOPI = 2 * 3.1415;
@@ -12,15 +12,15 @@ public class SinWave {
 	public static final short constfeq= 8;
 	public static short[] powersin= new short[constfeq];
 	public static short counter_j= 0;
-	
+
 	/**
-	 * 生成正弦波  PCM数据
+	 * 脡煤鲁脡脮媒脧脪虏篓  PCM脢媒戮脻
 	 * @param wave
-	 * @param waveLen 每段正弦波的长度
-	 * @param length 总长度
-	 * @return 返回对应正弦波所需的PCM数据
+	 * @param waveLen 脙驴露脦脮媒脧脪虏篓碌脛鲁陇露脠
+	 * @param length 脳脺鲁陇露脠
+	 * @return 路碌禄脴露脭脫娄脮媒脧脪虏篓脣霉脨猫碌脛PCM脢媒戮脻
 	 */
-//	public static byte[] sin(byte[] wave, int waveLen, int length) {//由于会i++所以length 至少比wavelen大1
+//	public static byte[] sin(byte[] wave, int waveLen, int length) {//脫脡脫脷禄谩i++脣霉脪脭length 脰脕脡脵卤脠wavelen麓贸1
 //		for (int i = 0; i < length; i++) {
 //			if(waveLen<3){
 //				if(i%2==0){
@@ -29,7 +29,7 @@ public class SinWave {
 //				else{
 //					wave[i]=-1;
 //				}
-//				
+//
 //			}else{
 //			wave[i] = (byte) (HEIGHT * (1.01 - Math.sin(TWOPI
 //					* ((i % waveLen) * 1.00 / waveLen))));
@@ -38,7 +38,7 @@ public class SinWave {
 //		}
 //		return wave;
 //	}
-	public static short[] sin(short[] wave, int length) {//由于会i++所以length 至少比wavelen大1
+	public static short[] sin(short[] wave, int length) {//脫脡脫脷禄谩i++脣霉脪脭length 脰脕脡脵卤脠wavelen麓贸1
 		if(powersinflag==false )
 		{
 			for (int i = 0; i < constfeq; i++){

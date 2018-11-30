@@ -1,5 +1,5 @@
 /********************************************
- * MessageOut.java 是一个由android发送数据到目标板的一个类，发送一个Byte。
+ * MessageOut.java 脢脟脪禄赂枚脫脡android路垄脣脥脢媒戮脻碌陆脛驴卤锚掳氓碌脛脪禄赂枚脌脿拢卢路垄脣脥脪禄赂枚Byte隆拢
  */
 
 
@@ -19,18 +19,18 @@ public class AudioTrackTx {
 	public int audioTrackTxBufSize;
 	public boolean issending=false;
 	public boolean sendresult=false;
-	public EncoderTx encoderTx; 
+	public EncoderTx encoderTx;
 /***********************************
- * 构造函数，初始化硬件，建立audiotrack对象，建立解码类Encoder对象 
+ * 鹿鹿脭矛潞炉脢媒拢卢鲁玫脢录禄炉脫虏录镁拢卢陆篓脕垄audiotrack露脭脧贸拢卢陆篓脕垄陆芒脗毛脌脿Encoder露脭脧贸
  */
 	public AudioTrackTx()
-	{   
-	
+	{
+
 		 minAudioTrackTxBufSize=AudioTrack.getMinBufferSize(sampleRate, audioTrackTxChannel, audioTrackTxFormat);
 		 encoderTx=new EncoderTx();
 	 }
  /********************************
-  * get_state 获取audiotrack对象的状态
+  * get_state 禄帽脠隆audiotrack露脭脧贸碌脛脳麓脤卢
   * @return
   */
  public int get_state()
@@ -38,16 +38,16 @@ public class AudioTrackTx {
 	 return audioTrack.getPlayState();
  }
  /***********************************
-  * msgIsSending 检查是否有信息正在发送
+  * msgIsSending 录矛虏茅脢脟路帽脫脨脨脜脧垄脮媒脭脷路垄脣脥
   * @return
   */
  public boolean msgIsSending(){
-	return issending;	 
+	return issending;
   }
  /*************************************
-  * msg_byte 发送一个byte类型的数据到目标板
-  * @param 所要发送的数据 msg
-  * @return 返回发送是否成功的标志
+  * msg_byte 路垄脣脥脪禄赂枚byte脌脿脨脥碌脛脢媒戮脻碌陆脛驴卤锚掳氓
+  * @param 脣霉脪陋路垄脣脥碌脛脢媒戮脻 msg
+  * @return 路碌禄脴路垄脣脥脢脟路帽鲁脡鹿娄碌脛卤锚脰戮
   */
  public boolean msg_byte(byte msg){
 	 int sendedsize=0;
@@ -55,7 +55,7 @@ public class AudioTrackTx {
 	 if(issending){
 		   msgStop();
 	 }
-	
+
 	 int audioTrackTxsize;
 	 if(audioTrack!=null)
 		 {
@@ -76,29 +76,29 @@ public class AudioTrackTx {
 			 audioTrackTxChannel,
 			 audioTrackTxFormat,
 			 audioTrackTxsize*2,
-             audioTrackTxMode);//用STATIC模式延时慢，必须用这种模式
+             audioTrackTxMode);//脫脙STATIC脛拢脢陆脩脫脢卤脗媒拢卢卤脴脨毛脫脙脮芒脰脰脛拢脢陆
 	 if(audioTrack.getState()!=AudioTrack.STATE_UNINITIALIZED)
 	 {
 	 msg_PCM=new short[audioTrackTxBufSize];
 	 msg_PCM=encoderTx.updateAudioTxBuf((byte)msg);
-	
+
 	 issending=true;
 			 sendedsize=audioTrack.write(msg_PCM, 0, msg_PCM.length);
 			 audioTrack.flush();
-			 audioTrack.setStereoVolume(1.0f, 0f);//设置左右声道音量
+			 audioTrack.setStereoVolume(1.0f, 0f);//脡猫脰脙脳贸脫脪脡霉碌脌脪么脕驴
 			 audioTrack.play();
 	 if(sendedsize==audioTrackTxBufSize)
 	 {
 		 sendresult=true;
-		
+
 //		 System.out.println("success send write PCM_Byte: "+ sendedsize);
 	 }
 	 else
 	 {
 		 sendresult=false;
-		 
+
 //		 System.out.println("fail send write PCM_Byte: "+ sendedsize);
-		 
+
 	 }
 	 }
 	 else
@@ -108,13 +108,13 @@ public class AudioTrackTx {
 		 audioTrack=null;
 	 }
 	 issending=false;
-	
+
 	 return sendresult;
-	 
+
  }
  /**********************************
-  * msg_string  发送一个string类型的数据到目标板
-  * @param 所要发送的数据str
+  * msg_string  路垄脣脥脪禄赂枚string脌脿脨脥碌脛脢媒戮脻碌陆脛驴卤锚掳氓
+  * @param 脣霉脪陋路垄脣脥碌脛脢媒戮脻str
   * @return
   */
  public boolean msg_string(String str)
@@ -130,10 +130,10 @@ public class AudioTrackTx {
 	 }
 	 sendresult=true;
 	return sendresult;
-	 
+
  }
  /*********************************
-  * msgStop 释放硬件资源
+  * msgStop 脢脥路脜脫虏录镁脳脢脭麓
   */
  public void msgStop(){
 	   if(audioTrack!=null)

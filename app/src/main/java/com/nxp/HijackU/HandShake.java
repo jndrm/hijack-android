@@ -1,27 +1,27 @@
 /*******************************
- * SoundRecord.java 录音程序 通过录音把目标板发送上来的方波数据转换为PCM数据，供解码程序用
+ * SoundRecord.java 脗录脪么鲁脤脨貌 脥篓鹿媒脗录脪么掳脩脛驴卤锚掳氓路垄脣脥脡脧脌麓碌脛路陆虏篓脢媒戮脻脳陋禄禄脦陋PCM脢媒戮脻拢卢鹿漏陆芒脗毛鲁脤脨貌脫脙
  */
 
 package com.nxp.HijackU;
 import android.os.Bundle;
 import android.os.Message;
 public class HandShake {
-	
+
 	public static boolean hsFlag=false;
 	public boolean hsexit=false;
-	HandShakeThread hsThread=null;	
-	AudioTrackTx msgohs =new AudioTrackTx();//但是缓冲区越大，时间间隔越久，所以两者间权衡
-	
+	HandShakeThread hsThread=null;
+	AudioTrackTx msgohs =new AudioTrackTx();//碌芦脢脟禄潞鲁氓脟酶脭陆麓贸拢卢脢卤录盲录盲赂么脭陆戮脙拢卢脣霉脪脭脕陆脮脽录盲脠篓潞芒
+
 /********************************
- * 设置好中断事件，初始化硬件建立handshake对象
+ * 脡猫脰脙潞脙脰脨露脧脢脗录镁拢卢鲁玫脢录禄炉脫虏录镁陆篓脕垄handshake露脭脧贸
  */
     public void start(){
     	hsexit=false;
-    	if(hsThread ==null){  
+    	if(hsThread ==null){
     		HijackU.sensordataDebug =6;
 //    		audioRecord=new AudioRecord(audioSource,recSampleRate,recChannel,recAudioFormat,minRecBufSize*4);
-//	    	audioRecord.setPositionNotificationPeriod(minRecBufSize); //这是监听器，当缓冲区为minRecBufSize溢出时中断 		
-//	    	audioRecord.setRecordPositionUpdateListener(mreclistener);//中断服务函数
+//	    	audioRecord.setPositionNotificationPeriod(minRecBufSize); //脮芒脢脟录脿脤媒脝梅拢卢碌卤禄潞鲁氓脟酶脦陋minRecBufSize脪莽鲁枚脢卤脰脨露脧
+//	    	audioRecord.setRecordPositionUpdateListener(mreclistener);//脰脨露脧路镁脦帽潞炉脢媒
     		hsFlag=true;
 	    	hsThread = new HandShakeThread();//minRecBufSize
 	    	hsThread.start();
@@ -29,7 +29,7 @@ public class HandShake {
     	}
     }
 /******************************
- * 停止录音，释放资源
+ * 脥拢脰鹿脗录脪么拢卢脢脥路脜脳脢脭麓
  */
     @SuppressWarnings("deprecation")
 	public void stop(){
@@ -52,13 +52,13 @@ public class HandShake {
     	hsThread.stop();
     	}catch(SecurityException e)
     	{
-    		
-    	}    	
-    	hsThread =null;    	
+
+    	}
+    	hsThread =null;
 
     }
  /********************************
-  * 录音线程 不断读取录音PCM数据进行解码
+  * 脗录脪么脧脽鲁脤 虏禄露脧露脕脠隆脗录脪么PCM脢媒戮脻陆酶脨脨陆芒脗毛
   * @author Administrator
   *
   */
@@ -85,7 +85,7 @@ public class HandShake {
     		    					HijackU.handshakeC++;
     		    					break;
     		    				default:
-    		    					break;		
+    		    					break;
     		    				}
     		    				try {
     		    					Thread.currentThread();

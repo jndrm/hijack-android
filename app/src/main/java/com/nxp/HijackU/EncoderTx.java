@@ -1,6 +1,6 @@
 /**********************************
- * Encoder 这是一个编码类，用于把要发送的数据进行编码编为16位的PCM数据格式
- * 公式=1.01-sin(wt)每种android手机数据格式不一样，魅族M9:数据值为1输出正弦波波峰，-1输出正弦波波谷。数据-128和127为正弦波0点，正好与常理相反，由于无法获得手机硬件，原因无法查究
+ * Encoder 脮芒脢脟脪禄赂枚卤脿脗毛脌脿拢卢脫脙脫脷掳脩脪陋路垄脣脥碌脛脢媒戮脻陆酶脨脨卤脿脗毛卤脿脦陋16脦禄碌脛PCM脢媒戮脻赂帽脢陆
+ * 鹿芦脢陆=1.01-sin(wt)脙驴脰脰android脢脰禄煤脢媒戮脻赂帽脢陆虏禄脪禄脩霉拢卢梅脠脳氓M9:脢媒戮脻脰碌脦陋1脢盲鲁枚脮媒脧脪虏篓虏篓路氓拢卢-1脢盲鲁枚脮媒脧脪虏篓虏篓鹿脠隆拢脢媒戮脻-128潞脥127脦陋脮媒脧脪虏篓0碌茫拢卢脮媒潞脙脫毛鲁拢脌铆脧脿路麓拢卢脫脡脫脷脦脼路篓禄帽碌脙脢脰禄煤脫虏录镁拢卢脭颅脪貌脦脼路篓虏茅戮驴
  */
 
 package com.nxp.HijackU;
@@ -12,24 +12,24 @@ public class EncoderTx {
 	public static int bitTxLength=17; //frame header: 3bits(1) + start bit: 1bit(0) + Data: 8bits + parity bit: 1bit + stop bit: 1bit(1) + frame tail: 3bits(1)
 	public static int dataLength=0;
 	public static double W_PI2=2*3.1415f;
-	public static double Hifreq=1378.125f; 
+	public static double Hifreq=1378.125f;
 	public static double Lofreq=Hifreq/2.0f;
 	public int audioAM = 32767;
-	public int audioTxBufLength = 0; 
+	public int audioTxBufLength = 0;
 	public static short[] highLevel = new short[ sampleBit ];
 	public static short[] lowLevel  = new short[ sampleBit ];
 	private int  counter_i = 0;
 	private int  counter_j = 0;
 	private int  counter_k = 0;
-	
+
 	public int getaudioTxBufsize()
 	{
-		audioTxBufLength = bitTxLength * sampleBit;//6 ones（包头3个ons,包尾3个ones） ,8bit数据,0start ,1stop,1parity
+		audioTxBufLength = bitTxLength * sampleBit;//6 ones拢篓掳眉脥路3赂枚ons,掳眉脦虏3赂枚ones拢漏 ,8bit脢媒戮脻,0start ,1stop,1parity
 		return audioTxBufLength;
 	}
-	
+
 /***********************************************
- initiate transmit 1 and 0 basic data 
+ initiate transmit 1 and 0 basic data
  */
 	public void initEncoderTxData()
 	{
@@ -39,9 +39,9 @@ public class EncoderTx {
 			lowLevel[counter_i]  = (short) (audioAM * (Math.sin(Math.PI * counter_i /sampleBit * 2)));
 		}
 	}
-	
+
 /***********************************************
- update audio transmit buffer basic data 
+ update audio transmit buffer basic data
  */
 	public short[] updateAudioTxBuf(byte audioTxData)
 	{
@@ -100,7 +100,7 @@ public class EncoderTx {
 					counter_k++;
 				}
 			}
-			
+
 		}
 		return audioTxBuf;
 	}

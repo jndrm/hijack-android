@@ -1,7 +1,7 @@
 
 /*************************************
- * Decoder 类是一个解码类，把录音得到的PCM文件进行解码，这和硬件解慢切斯特码思想一样，就是：“一个解码时钟到来时当前电平就是码元”
- * 
+ * Decoder 脌脿脢脟脪禄赂枚陆芒脗毛脌脿拢卢掳脩脗录脪么碌脙碌陆碌脛PCM脦脛录镁陆酶脨脨陆芒脗毛拢卢脮芒潞脥脫虏录镁陆芒脗媒脟脨脣鹿脤脴脗毛脣录脧毛脪禄脩霉拢卢戮脥脢脟拢潞隆掳脪禄赂枚陆芒脗毛脢卤脰脫碌陆脌麓脢卤碌卤脟掳碌莽脝陆戮脥脢脟脗毛脭陋隆卤
+ *
  */
 package com.nxp.HijackU;
 
@@ -17,13 +17,13 @@ public class DecoderRx {
 	public final byte stopBitFlag = 5;
 	public static int sampleBit=32;
 	private int  counter_i = 0;
-	public short highValue=200;	//1阀值
-	public short lowValue=-200;	//0阀值
+	public short highValue=200;	//1路搂脰碌
+	public short lowValue=-200;	//0路搂脰碌
 	public byte longCounter = (byte) (sampleBit+sampleBit/2);
 	public byte shortCounter = (byte) (sampleBit/2+sampleBit/4);
 	public byte frameHeaderCounter = 0;
 	public byte errorSampleBitCounter = 0;
-	
+
 	public final byte STARTBIT=0;
 	public final byte SAMEBIT=1;
 	public final byte	NEXTBIT=2;
@@ -36,7 +36,7 @@ public class DecoderRx {
     public byte SHORT = (byte) (samplesperbit/2+samplesperbit/4);//24
     public byte LONG =(byte) (samplesperbit+samplesperbit/2);//48
     public static byte ones=0;
-    
+
     public void decoderAudioRxbuf()
     {
     	ArrayList<Byte> dataRxByteList = new ArrayList<Byte>();
@@ -60,7 +60,7 @@ public class DecoderRx {
     			audioRxBufLength = AudioRecordRx.audioRecord.read(audioRxBuf, 0,AudioRecordRx.minAudioRecordRxBufSize);
     			if(audioRxBufLength == AudioRecord.ERROR_BAD_VALUE)
     			{
-    				//reserved 
+    				//reserved
     			}
     			else
     			{
@@ -93,7 +93,7 @@ public class DecoderRx {
     						case startBitCheckFlag:
     							if(lastSampleBit==0 && currentSampleBit==1)
 								   {
-    								decoderState=startBitFlag; //下一个状态为检测起始位
+    								decoderState=startBitFlag; //脧脗脪禄赂枚脳麓脤卢脦陋录矛虏芒脝冒脢录脦禄
 								   }
 								break;
     						case startBitFlag:
@@ -105,16 +105,16 @@ public class DecoderRx {
 										decoderState=startBitCheckFlag;
 									}
 									else
-									{ 
+									{
 										dataBitCounter=0;
 										parityBit=0;
 										dataRxByte=0;
-										decoderState=dataBitFlag;//起始位检测成功，下一个状态为解码转台，开始解码
+										decoderState=dataBitFlag;//脝冒脢录脦禄录矛虏芒鲁脡鹿娄拢卢脧脗脪禄赂枚脳麓脤卢脦陋陆芒脗毛脳陋脤篓拢卢驴陋脢录陆芒脗毛
 									}
 								}
     							else
 								{
-    								decoderState=startBitCheckFlag; //边沿间隔太短，证明不是起始位，而是“1”
+    								decoderState=startBitCheckFlag; //卤脽脩脴录盲赂么脤芦露脤拢卢脰陇脙梅虏禄脢脟脝冒脢录脦禄拢卢露酶脢脟隆掳1隆卤
     								if(shortCounter > diffCounter)
 									{
     									frameHeaderCounter++;
@@ -132,7 +132,7 @@ public class DecoderRx {
 										dataBitCounter+=1;
 										parityBit+=currentSampleBit;
 									}
-									else if(dataBitCounter==8) //第九位，奇偶校验位
+									else if(dataBitCounter==8) //碌脷戮脜脦禄拢卢脝忙脜录脨拢脩茅脦禄
 									{
 										if(currentSampleBit !=(parityBit & 0x01))
 										{
@@ -146,7 +146,7 @@ public class DecoderRx {
 									}
 									else if(dataBitCounter==9)
 									{
-											if(currentSampleBit==1)//停止位，证明数据接收成功
+											if(currentSampleBit==1)//脥拢脰鹿脦禄拢卢脰陇脙梅脢媒戮脻陆脫脢脮鲁脡鹿娄
 											{
 												dataRxByteList.add(dataRxByte);
 												dataBitCounter = 0;
@@ -154,7 +154,7 @@ public class DecoderRx {
 //												if(HijackU.isrecord3==true)
 //												{
 //												  char strc;
-//												  strc=(char)dataRxByte;												  
+//												  strc=(char)dataRxByte;
 //												  str+=Character.toString(strc);
 //												}
 //												else
@@ -162,23 +162,23 @@ public class DecoderRx {
 													if(dataRxByte<16 && dataRxByte > -16) str+='0';
 													str+=Integer.toHexString((int)(dataRxByte&0xff));
 //												}
-													msg_IC_num(str);//发送系统消息，发送到控件上显示出来
+													msg_IC_num(str);//路垄脣脥脧碌脥鲁脧没脧垄拢卢路垄脣脥碌陆驴脴录镁脡脧脧脭脢戮鲁枚脌麓
 
 											}
 											else
 											{
-												
+
 											}
 											decoderState=startBitCheckFlag;
 										}
-									else decoderState=startBitCheckFlag;	
+									else decoderState=startBitCheckFlag;
 								}
     						else if(diffCounter > longCounter)
-    						{  //边沿间隔太长，不正常，所以把状态变为STARTBIT
+    						{  //卤脽脩脴录盲赂么脤芦鲁陇拢卢虏禄脮媒鲁拢拢卢脣霉脪脭掳脩脳麓脤卢卤盲脦陋STARTBIT
     							frameHeaderCounter=0;
     							decoderState=startBitCheckFlag;
 							}
-    						else 
+    						else
     						{
     							lastSampleBit=currentSampleBit;
 								continue;
@@ -201,10 +201,10 @@ public class DecoderRx {
     }
 
 /***************************************************
- * msg_IC_num 用于发送消息的函数，把string 类型的消息发送到activity进行显示
+ * msg_IC_num 脫脙脫脷路垄脣脥脧没脧垄碌脛潞炉脢媒拢卢掳脩string 脌脿脨脥碌脛脧没脧垄路垄脣脥碌陆activity陆酶脨脨脧脭脢戮
  * @param str
  */
-    public void msg_IC_num(String str){//发送系统消息
+    public void msg_IC_num(String str){//路垄脣脥脧碌脥鲁脧没脧垄
     	Message msg=new Message();
     	Bundle b=new Bundle();
     	b.putString("IC_num", str);
