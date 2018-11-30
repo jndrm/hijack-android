@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello Quick-Jack!</string>
+    <string name="app_name">NXP Quick-Jack</string>
+    <string name="icdata">IC DATA : </string>
+    <string name="led1">LED1</string>
+    <string name="led2">LED2</string>
+    <string name="led3">LED3</string>
+    <string name="hello_world">(NXP) Smarthphone Quick-Jack Solution</string>
+    <string name="menu_settings1">NXP MCU</string>
+    <string name="title_activity_quickjack_all">(NXP) Smarthphone Quick-Jack Solution</string>
+    <string name="menu_settings">NXP Quick-Jack.v1.0</string>
+    <string name="EnableKey">Enable KEYs</string>
+    <string name="BT1">Read Card</string>
+    <string name="BT2">Stop Reader</string>
+    <string name="BT41">Begin</string>
+    <string name="BT412">Drawing</string>    
+    <string name="BT42">Clear</string>
+    <string name="phonetypeselectable">Select user phone type</string>
+    <string name="phonetypeSamsung">Samsung</string>
+    <string name="phonetypeXiaomi">Xiaomi</string>
+</resources>
