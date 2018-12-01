@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#92dd22" >
-
+
+
+
    <LinearLayout
        android:id="@+id/linearLayout2"
        android:layout_width="wrap_content"
@@ -12,7 +14,9 @@
        android:layout_alignParentLeft="true"
        android:layout_alignParentRight="true"
        android:orientation="vertical" >
-
+
+
+
         <SurfaceView
             android:id="@+id/surfaceView41"
             android:layout_width="match_parent"
@@ -56,14 +60,13 @@
         android:ems="10"
         android:focusable="false"
         android:focusableInTouchMode="false" />
-
+
     <EditText
         android:id="@+id/EditText01"
         android:layout_width="80dp"
         android:layout_height="30dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="false"
-        android:layout_alignTop="@+id/surfaceView41"
         android:layout_centerVertical="false"
         android:layout_marginTop="450px"
         android:background="@null"
@@ -75,7 +78,9 @@
 
         <requestFocus />
     </EditText>
-
+
+
+
     <EditText
         android:id="@+id/EditText02"
         android:layout_width="80dp"
