@@ -1,6 +1,6 @@
 /**********************************
- * Encoder ÕâÊÇÒ»¸ö±àÂëÀà£¬ÓÃÓÚ°ÑÒª·¢ËÍµÄÊý¾Ý½øÐÐ±àÂë±àÎª16Î»µÄPCMÊý¾Ý¸ñÊ½
- * ¹«Ê½=1.01-sin(wt)Ã¿ÖÖandroidÊÖ»úÊý¾Ý¸ñÊ½²»Ò»Ñù£¬÷È×åM9:Êý¾ÝÖµÎª1Êä³öÕýÏÒ²¨²¨·å£¬-1Êä³öÕýÏÒ²¨²¨¹È¡£Êý¾Ý-128ºÍ127ÎªÕýÏÒ²¨0µã£¬ÕýºÃÓë³£ÀíÏà·´£¬ÓÉÓÚÎÞ·¨»ñµÃÊÖ»úÓ²¼þ£¬Ô­ÒòÎÞ·¨²é¾¿
+ * Encoder 这是一个编码类，用于把要发送的数据进行编码编为16位的PCM数据格式
+ * 公式=1.01-sin(wt)每种android手机数据格式不一样，魅族M9:数据值为1输出正弦波波峰，-1输出正弦波波谷。数据-128和127为正弦波0点，正好与常理相反，由于无法获得手机硬件，原因无法查究
  */
 
 package com.nxp.HijackU;
@@ -23,7 +23,7 @@ public class EncoderTx {
     private int counter_k = 0;
 
     public int getaudioTxBufsize() {
-        audioTxBufLength = bitTxLength * sampleBit;//6 ones£¨°üÍ·3¸öons,°üÎ²3¸öones£© ,8bitÊý¾Ý,0start ,1stop,1parity
+        audioTxBufLength = bitTxLength * sampleBit;//6 ones（包头3个ons,包尾3个ones） ,8bit数据,0start ,1stop,1parity
         return audioTxBufLength;
     }
 

@@ -1,5 +1,5 @@
 /*******************************
- * SoundRecord.java Â¼Òô³ÌÐò Í¨¹ýÂ¼Òô°ÑÄ¿±ê°å·¢ËÍÉÏÀ´µÄ·½²¨Êý¾Ý×ª»»ÎªPCMÊý¾Ý£¬¹©½âÂë³ÌÐòÓÃ
+ * SoundRecord.java 录音程序 通过录音把目标板发送上来的方波数据转换为PCM数据，供解码程序用
  */
 
 package com.nxp.HijackU;
@@ -12,18 +12,18 @@ public class HandShake {
     public static boolean hsFlag = false;
     public boolean hsexit = false;
     HandShakeThread hsThread = null;
-    AudioTrackTx msgohs = new AudioTrackTx();//µ«ÊÇ»º³åÇøÔ½´ó£¬Ê±¼ä¼ä¸ôÔ½¾Ã£¬ËùÒÔÁ½Õß¼äÈ¨ºâ
+    AudioTrackTx msgohs = new AudioTrackTx();//但是缓冲区越大，时间间隔越久，所以两者间权衡
 
     /********************************
-     * ÉèÖÃºÃÖÐ¶ÏÊÂ¼þ£¬³õÊ¼»¯Ó²¼þ½¨Á¢handshake¶ÔÏó
+     * 设置好中断事件，初始化硬件建立handshake对象
      */
     public void start() {
         hsexit = false;
         if (hsThread == null) {
             HijackU.sensordataDebug = 6;
 //    		audioRecord=new AudioRecord(audioSource,recSampleRate,recChannel,recAudioFormat,minRecBufSize*4);
-//	    	audioRecord.setPositionNotificationPeriod(minRecBufSize); //ÕâÊÇ¼àÌýÆ÷£¬µ±»º³åÇøÎªminRecBufSizeÒç³öÊ±ÖÐ¶Ï
-//	    	audioRecord.setRecordPositionUpdateListener(mreclistener);//ÖÐ¶Ï·þÎñº¯Êý
+//	    	audioRecord.setPositionNotificationPeriod(minRecBufSize); //这是监听器，当缓冲区为minRecBufSize溢出时中断
+//	    	audioRecord.setRecordPositionUpdateListener(mreclistener);//中断服务函数
             hsFlag = true;
             hsThread = new HandShakeThread();//minRecBufSize
             hsThread.start();
@@ -32,7 +32,7 @@ public class HandShake {
     }
 
     /******************************
-     * Í£Ö¹Â¼Òô£¬ÊÍ·Å×ÊÔ´
+     * 停止录音，释放资源
      */
     @SuppressWarnings("deprecation")
     public void stop() {
@@ -61,7 +61,7 @@ public class HandShake {
     }
 
     /********************************
-     * Â¼ÒôÏß³Ì ²»¶Ï¶ÁÈ¡Â¼ÒôPCMÊý¾Ý½øÐÐ½âÂë
+     * 录音线程 不断读取录音PCM数据进行解码
      * @author Administrator
      *
      */

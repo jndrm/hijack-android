@@ -1,5 +1,5 @@
 /************************************************
- * PowerSin ÕýÏÒ²¨²úÉúÀà£¬Í¨¹ýÕýÏÒ²¨ÏòÄ¿±ê°å¹©µç
+ * PowerSin 正弦波产生类，通过正弦波向目标板供电
  */
 
 package com.nxp.HijackU;
@@ -11,7 +11,7 @@ import android.media.AudioTrack;
 
 
 public class PowerSin {
-    public static final int Sample_Rate = 44100;//²ÉÑùÆµÂÊ
+    public static final int Sample_Rate = 44100;//采样频率
     public static final float MAXVOLUME = 100f;
     public static final int LEFT = 1;
     public static final int RIGHT = 2;
@@ -19,27 +19,27 @@ public class PowerSin {
 
     AudioTrack audioTrackLight;
     /**
-     * ÒôÁ¿
+     * 音量
      **/
     float volume;
     /**
-     * ÉùµÀ
+     * 声道
      **/
     int channel = RIGHT;
     /**
-     * ×Ü³¤¶È
+     * 总长度
      **/
     int length;
     /**
-     * Ò»¸öÕýÏÒ²¨µÄ³¤¶È
+     * 一个正弦波的长度
      **/
     int waveLen;
     /**
-     * ÆµÂÊ
+     * 频率
      **/
     int Hz;
     /**
-     * ÕýÏÒ²¨
+     * 正弦波
      **/
 //	byte[] wave;
     short[] wave;
@@ -49,7 +49,7 @@ public class PowerSin {
 //	}
 
     /**
-     * ÉèÖÃÆµÂÊ£¬³õÊ¼»¯Ó²¼þ  ½¨Á¢audioTrackLight¶ÔÏó
+     * 设置频率，初始化硬件  建立audioTrackLight对象
      *
      * @param rate
      */
@@ -59,16 +59,16 @@ public class PowerSin {
             Hz = rate;
             waveLen = Sample_Rate / Hz;
             int minbufsize = AudioTrack.getMinBufferSize(Sample_Rate,
-                AudioFormat.CHANNEL_OUT_MONO, //µ¥ÉùµÀ
-                AudioFormat.ENCODING_PCM_16BIT);//16Î»PCM
-            length = (minbufsize / waveLen) * waveLen;//waveÊÇÒ»¸öÕýÏÒ²¨µÄ³¤¶È£¬minbufsizeÊÇÏµÍ³¹æ¶¨µÄbuffer´óÐ¡£¬ÕûÊý³ý·¨£¬È·±£lengthÊÇwavelenµÄÕûÊý±¶£¬²»»áÔÚÏÎ½Ó´¦³öÏÖÔÓ²¨,È·±£lenth>minbuffersize
+                AudioFormat.CHANNEL_OUT_MONO, //单声道
+                AudioFormat.ENCODING_PCM_16BIT);//16位PCM
+            length = (minbufsize / waveLen) * waveLen;//wave是一个正弦波的长度，minbufsize是系统规定的buffer大小，整数除法，确保length是wavelen的整数倍，不会在衔接处出现杂波,确保lenth>minbuffersize
 //			wave=new byte[length];
             wave = new short[length];
 
             audioTrackLight = new AudioTrack(AudioManager.STREAM_MUSIC, Sample_Rate,
                 AudioFormat.CHANNEL_OUT_MONO,
-                AudioFormat.ENCODING_PCM_16BIT, length * 2, AudioTrack.MODE_STATIC);//Êý¾Ý½Ï´ó²»ÄÜÓÃstatic,¿ÉÒÔÓÃsetLoopPointsÑ­»·²¥·Å
-            //Éú³ÉÕýÏÒ²¨
+                AudioFormat.ENCODING_PCM_16BIT, length * 2, AudioTrack.MODE_STATIC);//数据较大不能用static,可以用setLoopPoints循环播放
+            //生成正弦波
 //			wave=SinWave.sin(wave, waveLen, length);
             wave = SinWave.sin(wave, length);
             audioTrackLight.write(wave, 0, length);
@@ -101,7 +101,7 @@ public class PowerSin {
 
 
     /**
-     * Ð´ÈëÊý¾Ý£¬ÉùµÀµÃµ½ÕýÏÒ²¨
+     * 写入数据，声道得到正弦波
      */
     public void play() {
         if (audioTrackLight != null) {
@@ -110,7 +110,7 @@ public class PowerSin {
     }
 
     /**
-     * Í£Ö¹²¥·Å
+     * 停止播放
      */
     public void stop() {
         if (audioTrackLight != null) {
@@ -121,7 +121,7 @@ public class PowerSin {
     }
 
     /**
-     * ÉèÖÃÒôÁ¿
+     * 设置音量
      *
      * @param volume
      */
@@ -145,7 +145,7 @@ public class PowerSin {
     }
 
     /**
-     * ÉèÖÃÉùµÀ
+     * 设置声道
      *
      * @param channel
      */

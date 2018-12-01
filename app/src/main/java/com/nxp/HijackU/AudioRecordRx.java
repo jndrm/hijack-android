@@ -1,5 +1,5 @@
 /*******************************
- * SoundRecord.java Â¼Òô³ÌÐò Í¨¹ýÂ¼Òô°ÑÄ¿±ê°å·¢ËÍÉÏÀ´µÄ·½²¨Êý¾Ý×ª»»ÎªPCMÊý¾Ý£¬¹©½âÂë³ÌÐòÓÃ
+ * SoundRecord.java 录音程序 通过录音把目标板发送上来的方波数据转换为PCM数据，供解码程序用
  */
 
 package com.nxp.HijackU;
@@ -25,7 +25,7 @@ public class AudioRecordRx {
     public static int audioRecordRxBufSize = minAudioRecordRxBufSize * 4;
     short[] audioRecordRxBuf = new short[minAudioRecordRxBufSize];
 
-    private OnRecordPositionUpdateListener audioRecordListener = new OnRecordPositionUpdateListener() {//»º³åÇøÒç³öÖÐ¶Ïº¯Êý
+    private OnRecordPositionUpdateListener audioRecordListener = new OnRecordPositionUpdateListener() {//缓冲区溢出中断函数
         @Override
         public void onMarkerReached(AudioRecord recorder) {
             // TODO Auto-generated method stub
@@ -37,15 +37,15 @@ public class AudioRecordRx {
             // TODO Auto-generated method stub
             audioReachedFlag = true;
             Log.d(null, "AudioRecordReached");
-            //»º³åÇøÒç³öÖÐ¶Ïµ½À´£¬±ÈÈçread»º³åÇøÊý¾Ý²Å¿ÉÒÔ½ÓÐøÂ¼Òô£¬·ñÔò»á×èÈû
-            //ÔÚÕâÀï²¢²»readÊý¾Ý£¬·ñÔò»áÕ¼ÓÃÖ÷Ïß³ÌµÄ×ÊÔ´£¬Ôì³Éactivity·´Ó¦ºÜÂý£¬readº¯ÊýÔÚDecoder.javaÄÇÀï
+            //缓冲区溢出中断到来，比如read缓冲区数据才可以接续录音，否则会阻塞
+            //在这里并不read数据，否则会占用主线程的资源，造成activity反应很慢，read函数在Decoder.java那里
             //  System.out.println("record interrupt " + System.currentTimeMillis());
         }
 
     };
 
     /********************************
-     * ÉèÖÃºÃÖÐ¶ÏÊÂ¼þ£¬³õÊ¼»¯Ó²¼þ½¨Á¢AudioRecordRx¶ÔÏó
+     * 设置好中断事件，初始化硬件建立AudioRecordRx对象
      */
     public void start() {
         audioRecordFlag = false;
@@ -57,7 +57,7 @@ public class AudioRecordRx {
     }
 
     /******************************
-     * Í£Ö¹Â¼Òô£¬ÊÍ·Å×ÊÔ´
+     * 停止录音，释放资源
      */
     public void stop() {
         audioRecordFlag = false;
@@ -82,7 +82,7 @@ public class AudioRecordRx {
     }
 
     /********************************
-     * Â¼ÒôÏß³Ì ²»¶Ï¶ÁÈ¡Â¼ÒôPCMÊý¾Ý½øÐÐ½âÂë
+     * 录音线程 不断读取录音PCM数据进行解码
      * @author Administrator
      *
      */
@@ -96,8 +96,8 @@ public class AudioRecordRx {
 
         public void run() {
             audioRecord = new AudioRecord(audioSource, sampleRate, audioRecordRxChannel, audioRecordRxFormat, audioRecordRxBufSize);
-            audioRecord.setPositionNotificationPeriod(minAudioRecordRxBufSize); //ÕâÊÇ¼àÌýÆ÷£¬µ±»º³åÇøÎªminRecBufSizeÒç³öÊ±ÖÐ¶Ï
-            audioRecord.setRecordPositionUpdateListener(audioRecordListener);//ÖÐ¶Ï·þÎñº¯Êý
+            audioRecord.setPositionNotificationPeriod(minAudioRecordRxBufSize); //这是监听器，当缓冲区为minRecBufSize溢出时中断
+            audioRecord.setRecordPositionUpdateListener(audioRecordListener);//中断服务函数
             audioRecord.startRecording();
             audioRecordReadFlag = audioRecord.read(audioRecordRxBuf, 0, minAudioRecordRxBufSize);
             decoderRx.decoderAudioRxbuf();
@@ -106,7 +106,7 @@ public class AudioRecordRx {
 
 
     /*******************************
-     * ´òÓ¡Â¼ÒôPCMÊý¾Ý£¬ÓÃÓÚ³ÌÐòµÄµ÷ÊÔ
+     * 打印录音PCM数据，用于程序的调试
      * @param tmpBuf
      * @param ret
      */

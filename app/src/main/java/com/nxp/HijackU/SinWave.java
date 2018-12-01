@@ -1,11 +1,11 @@
 ///////////////////////SinWave.java
-/////////////////Éú³ÉÓÃÓÚ¹©µçµÄÕýÏÒ²¨,
-//¹«Ê½=1.01-sin(wt)Ã¿ÖÖandroidÊÖ»úÊý¾Ý¸ñÊ½²»Ò»Ñù£¬÷È×åM9:Êý¾ÝÖµÎª1Êä³öÕýÏÒ²¨²¨·å£¬-1Êä³öÕýÏÒ²¨²¨¹È¡£Êý¾Ý-128ºÍ127ÎªÕýÏÒ²¨0µã£¬ÕýºÃÓë³£ÀíÏà·´£¬ÓÉÓÚÎÞ·¨»ñµÃÊÖ»úÓ²¼þ£¬Ô­ÒòÎÞ·¨²é¾¿
+/////////////////生成用于供电的正弦波,
+//公式=1.01-sin(wt)每种android手机数据格式不一样，魅族M9:数据值为1输出正弦波波峰，-1输出正弦波波谷。数据-128和127为正弦波0点，正好与常理相反，由于无法获得手机硬件，原因无法查究
 package com.nxp.HijackU;
 
 public class SinWave {
     /**
-     * ÕýÏÒ²¨µÄ¸ß¶È
+     * 正弦波的高度
      **/
     public static final int HEIGHT = 32767;    //16bit
     /**
@@ -18,14 +18,14 @@ public class SinWave {
     public static short counter_j = 0;
 
     /**
-     * Éú³ÉÕýÏÒ²¨  PCMÊý¾Ý
+     * 生成正弦波  PCM数据
      *
      * @param wave
-     * @param waveLen Ã¿¶ÎÕýÏÒ²¨µÄ³¤¶È
-     * @param length  ×Ü³¤¶È
-     * @return ·µ»Ø¶ÔÓ¦ÕýÏÒ²¨ËùÐèµÄPCMÊý¾Ý
+     * @param waveLen 每段正弦波的长度
+     * @param length  总长度
+     * @return 返回对应正弦波所需的PCM数据
      */
-//	public static byte[] sin(byte[] wave, int waveLen, int length) {//ÓÉÓÚ»ái++ËùÒÔlength ÖÁÉÙ±Èwavelen´ó1
+//	public static byte[] sin(byte[] wave, int waveLen, int length) {//由于会i++所以length 至少比wavelen大1
 //		for (int i = 0; i < length; i++) {
 //			if(waveLen<3){
 //				if(i%2==0){
@@ -43,7 +43,7 @@ public class SinWave {
 //		}
 //		return wave;
 //	}
-    public static short[] sin(short[] wave, int length) {//ÓÉÓÚ»ái++ËùÒÔlength ÖÁÉÙ±Èwavelen´ó1
+    public static short[] sin(short[] wave, int length) {//由于会i++所以length 至少比wavelen大1
         if (powersinflag == false) {
             for (int i = 0; i < constfeq; i++) {
                 powersin[i] = (short) (HEIGHT * (Math.sin(Math.PI * i / constfeq * 2)));

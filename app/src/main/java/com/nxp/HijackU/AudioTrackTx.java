@@ -1,5 +1,5 @@
 /********************************************
- * MessageOut.java ÊÇÒ»¸öÓÉandroid·¢ËÍÊý¾Ýµ½Ä¿±ê°åµÄÒ»¸öÀà£¬·¢ËÍÒ»¸öByte¡£
+ * MessageOut.java 是一个由android发送数据到目标板的一个类，发送一个Byte。
  */
 
 
@@ -23,7 +23,7 @@ public class AudioTrackTx {
     public EncoderTx encoderTx;
 
     /***********************************
-     * ¹¹Ôìº¯Êý£¬³õÊ¼»¯Ó²¼þ£¬½¨Á¢audiotrack¶ÔÏó£¬½¨Á¢½âÂëÀàEncoder¶ÔÏó
+     * 构造函数，初始化硬件，建立audiotrack对象，建立解码类Encoder对象
      */
     public AudioTrackTx() {
 
@@ -32,7 +32,7 @@ public class AudioTrackTx {
     }
 
     /********************************
-     * get_state »ñÈ¡audiotrack¶ÔÏóµÄ×´Ì¬
+     * get_state 获取audiotrack对象的状态
      * @return
      */
     public int get_state() {
@@ -40,7 +40,7 @@ public class AudioTrackTx {
     }
 
     /***********************************
-     * msgIsSending ¼ì²éÊÇ·ñÓÐÐÅÏ¢ÕýÔÚ·¢ËÍ
+     * msgIsSending 检查是否有信息正在发送
      * @return
      */
     public boolean msgIsSending() {
@@ -48,9 +48,9 @@ public class AudioTrackTx {
     }
 
     /*************************************
-     * msg_byte ·¢ËÍÒ»¸öbyteÀàÐÍµÄÊý¾Ýµ½Ä¿±ê°å
-     * @param ËùÒª·¢ËÍµÄÊý¾Ý msg
-     * @return ·µ»Ø·¢ËÍÊÇ·ñ³É¹¦µÄ±êÖ¾
+     * msg_byte 发送一个byte类型的数据到目标板
+     * @param 所要发送的数据 msg
+     * @return 返回发送是否成功的标志
      */
     public boolean msg_byte(byte msg) {
         int sendedsize = 0;
@@ -75,7 +75,7 @@ public class AudioTrackTx {
             audioTrackTxChannel,
             audioTrackTxFormat,
             audioTrackTxsize * 2,
-            audioTrackTxMode);//ÓÃSTATICÄ£Ê½ÑÓÊ±Âý£¬±ØÐëÓÃÕâÖÖÄ£Ê½
+            audioTrackTxMode);//用STATIC模式延时慢，必须用这种模式
         if (audioTrack.getState() != AudioTrack.STATE_UNINITIALIZED) {
             msg_PCM = new short[audioTrackTxBufSize];
             msg_PCM = encoderTx.updateAudioTxBuf((byte) msg);
@@ -83,12 +83,12 @@ public class AudioTrackTx {
             issending = true;
             sendedsize = audioTrack.write(msg_PCM, 0, msg_PCM.length);
             audioTrack.flush();
-            audioTrack.setStereoVolume(1.0f, 0f);//ÉèÖÃ×óÓÒÉùµÀÒôÁ¿
+            audioTrack.setStereoVolume(1.0f, 0f);//设置左右声道音量
             audioTrack.play();
             if (sendedsize == audioTrackTxBufSize) {
                 sendresult = true;
 
-//System.out.println("success send write PCM_Byte: "+ sendedsize);
+//		 System.out.println("success send write PCM_Byte: "+ sendedsize);
             } else {
                 sendresult = false;
 
@@ -107,8 +107,8 @@ public class AudioTrackTx {
     }
 
     /**********************************
-     * msg_string  ·¢ËÍÒ»¸östringÀàÐÍµÄÊý¾Ýµ½Ä¿±ê°å
-     * @param ËùÒª·¢ËÍµÄÊý¾Ýstr
+     * msg_string  发送一个string类型的数据到目标板
+     * @param 所要发送的数据str
      * @return
      */
     public boolean msg_string(String str) {
@@ -125,7 +125,7 @@ public class AudioTrackTx {
     }
 
     /*********************************
-     * msgStop ÊÍ·ÅÓ²¼þ×ÊÔ´
+     * msgStop 释放硬件资源
      */
     public void msgStop() {
         if (audioTrack != null) {

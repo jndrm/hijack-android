@@ -1,6 +1,6 @@
 ///////////////////////SinWave.java
-/////////////////Éú³ÉÓÃÓÚ¹©µçµÄÕýÏÒ²¨,
-//¹«Ê½=1.01-sin(wt)Ã¿ÖÖandroidÊÖ»úÊý¾Ý¸ñÊ½²»Ò»Ñù£¬÷È×åM9:Êý¾ÝÖµÎª1Êä³öÕýÏÒ²¨²¨·å£¬-1Êä³öÕýÏÒ²¨²¨¹È¡£Êý¾Ý-128ºÍ127ÎªÕýÏÒ²¨0µã£¬ÕýºÃÓë³£ÀíÏà·´£¬ÓÉÓÚÎÞ·¨»ñµÃÊÖ»úÓ²¼þ£¬Ô­ÒòÎÞ·¨²é¾¿
+/////////////////生成用于供电的正弦波,
+//公式=1.01-sin(wt)每种android手机数据格式不一样，魅族M9:数据值为1输出正弦波波峰，-1输出正弦波波谷。数据-128和127为正弦波0点，正好与常理相反，由于无法获得手机硬件，原因无法查究
 package com.nxp.HijackU;
 
 import android.content.BroadcastReceiver;
@@ -31,10 +31,10 @@ public class HeadsetDetect extends BroadcastReceiver {
     }
 
     /***************************************************
-     * msg_IC_num ÓÃÓÚ·¢ËÍÏûÏ¢µÄº¯Êý£¬°Ñstring ÀàÐÍµÄÏûÏ¢·¢ËÍµ½activity½øÐÐÏÔÊ¾
+     * msg_IC_num 用于发送消息的函数，把string 类型的消息发送到activity进行显示
      * @param str
      */
-    public void msg_IC_num(boolean str) {//·¢ËÍÏµÍ³ÏûÏ¢
+    public void msg_IC_num(boolean str) {//发送系统消息
         Message msg = new Message();
         Bundle b = new Bundle();
         b.putBoolean("IC_num", hdflag);
