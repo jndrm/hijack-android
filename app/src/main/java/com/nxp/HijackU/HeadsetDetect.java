@@ -12,34 +12,35 @@ import android.widget.Toast;
 
 public class HeadsetDetect extends BroadcastReceiver {
 
-	    public static boolean hdflag=false;
-	    @Override
-	    public void onReceive(Context context, Intent intent) {
-	          if (intent.hasExtra("state")){
-	               if (intent.getIntExtra("state", 0) == 0){
-	            	   hdflag=false;
-	            	   msg_IC_num(hdflag);
-	                   Toast.makeText(context, "headset not connected", Toast.LENGTH_SHORT).show();
-	               }
-	               else if (intent.getIntExtra("state", 0) == 1){
-	            	   hdflag=true;
-	            	   msg_IC_num(hdflag);
-	            	   Toast.makeText(context, "headset connected", Toast.LENGTH_SHORT).show();
-	               }
-	          }
+    public static boolean hdflag = false;
 
-	 }
-	    /***************************************************
-	     * msg_IC_num ÓÃÓÚ·¢ËÍÏûÏ¢µÄº¯Êý£¬°Ñstring ÀàÐÍµÄÏûÏ¢·¢ËÍµ½activity½øÐÐÏÔÊ¾
-	     * @param str
-	     */
-	        public void msg_IC_num(boolean str){//·¢ËÍÏµÍ³ÏûÏ¢
-	        	Message msg=new Message();
-	        	Bundle b=new Bundle();
-	        	b.putBoolean("IC_num", hdflag);
-	        	msg.setData(b);
-	        	HijackU.myHDHandler.sendMessage(msg);
-	        }
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        if (intent.hasExtra("state")) {
+            if (intent.getIntExtra("state", 0) == 0) {
+                hdflag = false;
+                msg_IC_num(hdflag);
+                Toast.makeText(context, "headset not connected", Toast.LENGTH_SHORT).show();
+            } else if (intent.getIntExtra("state", 0) == 1) {
+                hdflag = true;
+                msg_IC_num(hdflag);
+                Toast.makeText(context, "headset connected", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    }
+
+    /***************************************************
+     * msg_IC_num ÓÃÓÚ·¢ËÍÏûÏ¢µÄº¯Êý£¬°Ñstring ÀàÐÍµÄÏûÏ¢·¢ËÍµ½activity½øÐÐÏÔÊ¾
+     * @param str
+     */
+    public void msg_IC_num(boolean str) {//·¢ËÍÏµÍ³ÏûÏ¢
+        Message msg = new Message();
+        Bundle b = new Bundle();
+        b.putBoolean("IC_num", hdflag);
+        msg.setData(b);
+        HijackU.myHDHandler.sendMessage(msg);
+    }
 
 }
 

@@ -3,8 +3,8 @@
     android:id="@+id/layout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#92dd22" >
-
+    android:background="#92dd22">
+
     <TextView
         android:id="@+id/textView31"
         android:layout_width="wrap_content"
@@ -12,32 +12,32 @@
         android:layout_alignParentLeft="true"
         android:text="@string/icdata"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
     <EditText
         android:id="@+id/editText31"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/imageButton31"
+        android:layout_below="@+id/textView31"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView31"
-        android:ems="10" 
         android:clickable="false"
+        android:ems="10"
         android:focusable="false"
-        android:focusableInTouchMode="false" >
+        android:focusableInTouchMode="false">
 
         <requestFocus />
     </EditText>
-
+
     <Button
         android:id="@+id/button31"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:text="@string/BT1" />
-
+
     <ImageButton
         android:id="@+id/imageButton31"
         android:layout_width="wrap_content"
