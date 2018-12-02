@@ -20,14 +20,14 @@ public class HandShake {
     public void start() {
         hsexit = false;
         if (hsThread == null) {
-            HijackU.sensordataDebug = 6;
+            HijackUActivity.sensordataDebug = 6;
 //    		audioRecord=new AudioRecord(audioSource,recSampleRate,recChannel,recAudioFormat,minRecBufSize*4);
 //	    	audioRecord.setPositionNotificationPeriod(minRecBufSize); //这是监听器，当缓冲区为minRecBufSize溢出时中断
 //	    	audioRecord.setRecordPositionUpdateListener(mreclistener);//中断服务函数
             hsFlag = true;
             hsThread = new HandShakeThread();//minRecBufSize
             hsThread.start();
-            HijackU.sensordataDebug = 23;
+            HijackUActivity.sensordataDebug = 23;
         }
     }
 
@@ -71,21 +71,21 @@ public class HandShake {
 
         @Override
         public void run() {
-            while (HijackU.hsenableflag) {
-                if (HijackU.funcmode != 255) {
-                    if ((HijackU.handshakeOK == false) && (HijackU.handshakeC < 10)) {
-                        switch (HijackU.funcmode) {
+            while (HijackUActivity.hsenableflag) {
+                if (HijackUActivity.funcmode != 255) {
+                    if ((HijackUActivity.handshakeOK == false) && (HijackUActivity.handshakeC < 10)) {
+                        switch (HijackUActivity.funcmode) {
                             case 0:
                                 msgohs.msg_byte((byte) 129);    //mzh:0x81
-                                HijackU.handshakeC++;
+                                HijackUActivity.handshakeC++;
                                 break;
                             case 1:
                                 msgohs.msg_byte((byte) 130);    //mzh:0x82
-                                HijackU.handshakeC++;
+                                HijackUActivity.handshakeC++;
                                 break;
                             case 2:
                                 msgohs.msg_byte((byte) 131);    //mzh:0x83
-                                HijackU.handshakeC++;
+                                HijackUActivity.handshakeC++;
                                 break;
                             default:
                                 break;
@@ -96,12 +96,12 @@ public class HandShake {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                    } else if ((HijackU.handshakeOK == false) && (HijackU.handshakeC > 9)) {
-                        HijackU.handshakeC = 0;
-                        HijackU.funcmode = 255;
-                        HijackU.handshakeflag = false;
-                        HijackU.handshakefailedflag = true;
-                        HijackU.hsenableflag = false;
+                    } else if ((HijackUActivity.handshakeOK == false) && (HijackUActivity.handshakeC > 9)) {
+                        HijackUActivity.handshakeC = 0;
+                        HijackUActivity.funcmode = 255;
+                        HijackUActivity.handshakeflag = false;
+                        HijackUActivity.handshakefailedflag = true;
+                        HijackUActivity.hsenableflag = false;
                         String str = " ";
                         msg_IC_num(str);
                     }
@@ -115,6 +115,6 @@ public class HandShake {
         Bundle b = new Bundle();
         b.putString("IC_num", str);
         msg.setData(b);
-        HijackU.myHsHandler.sendMessage(msg);
+        HijackUActivity.myHsHandler.sendMessage(msg);
     }
 }

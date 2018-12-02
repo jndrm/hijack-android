@@ -39,7 +39,7 @@ public class HeadsetDetect extends BroadcastReceiver {
         Bundle b = new Bundle();
         b.putBoolean("IC_num", hdflag);
         msg.setData(b);
-        HijackU.myHDHandler.sendMessage(msg);
+        HijackUActivity.myHDHandler.sendMessage(msg);
     }
 
 }

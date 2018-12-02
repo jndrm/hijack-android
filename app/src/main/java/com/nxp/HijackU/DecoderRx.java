@@ -72,7 +72,7 @@ public class DecoderRx {
 //    						currentSampleBit = 1;//XiaoMi(MIUI)
                             errorSampleBitCounter = 0;
                         } else errorSampleBitCounter++;
-                        HijackU.phoneRxError = errorSampleBitCounter;
+                        HijackUActivity.phoneRxError = errorSampleBitCounter;
                         /* decoder */
                         if (currentSampleBit != lastSampleBit) {
                             diffCounter = currentCounter - lastCounter;
@@ -124,7 +124,7 @@ public class DecoderRx {
                                                 dataRxByteList.add(dataRxByte);
                                                 dataBitCounter = 0;
                                                 String str = " ";
-//												if(HijackU.isrecord3==true)
+//												if(HijackUActivity.isrecord3==true)
 //												{
 //												  char strc;
 //												  strc=(char)dataRxByte;
@@ -174,7 +174,7 @@ public class DecoderRx {
         Bundle b = new Bundle();
         b.putString("IC_num", str);
         msg.setData(b);
-        HijackU.myICHandler.sendMessage(msg);
+        HijackUActivity.myICHandler.sendMessage(msg);
     }
 
 }

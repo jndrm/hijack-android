@@ -9,8 +9,6 @@ import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.nxp.HijackU.R;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -48,7 +46,7 @@ import android.widget.Toast;
 import android.content.Intent;
 
 @SuppressWarnings("deprecation")
-public class HijackU extends TabActivity {
+public class HijackUActivity extends TabActivity {
     public static LinkedList<Activity> sAllActivitys = new LinkedList<Activity>();
     //define TabHost object
     private TabHost mTabHost;
@@ -260,14 +258,14 @@ public class HijackU extends TabActivity {
                         funcmode = 0;
 //					msgo.msg_byte((byte)129);	//0x81
                         handshakeOK = false;
-                        Toast.makeText(HijackU.this, "Handshaking", Toast.LENGTH_SHORT)
+                        Toast.makeText(HijackUActivity.this, "Handshaking", Toast.LENGTH_SHORT)
                             .show();
                         break;
                     case 1:
                         funcmode = 1;
 //					msgo.msg_byte((byte)130);	//0x82
                         handshakeOK = false;
-                        Toast.makeText(HijackU.this, "Handshaking", Toast.LENGTH_SHORT)
+                        Toast.makeText(HijackUActivity.this, "Handshaking", Toast.LENGTH_SHORT)
                             .show();
                         break;
                     //Reserved RFID
@@ -275,7 +273,7 @@ public class HijackU extends TabActivity {
 //					funcmode = 2;
 ////					msgo.msg_byte((byte)131);	//0x83
 //					handshakeOK=false;
-//					Toast.makeText(HijackU.this, "Handshaking", Toast.LENGTH_SHORT)
+//					Toast.makeText(HijackUActivity.this, "Handshaking", Toast.LENGTH_SHORT)
 //					.show();
 //					break;
                     default:
@@ -331,7 +329,7 @@ public class HijackU extends TabActivity {
                     handshakeD = 0;
                     handshakeC = 0;
                     hsenableflag = false;
-                    Toast.makeText(HijackU.this, "Handshake OK", Toast.LENGTH_SHORT)
+                    Toast.makeText(HijackUActivity.this, "Handshake OK", Toast.LENGTH_SHORT)
                         .show();
                 } else handshakeflag = false;
 
@@ -437,12 +435,12 @@ public class HijackU extends TabActivity {
         public void handleMessage(Message msg) {
             // TODO Auto-generated method stub
 //    		Bundle c=msg.getData();
-            if (HijackU.handshakefailedflag = true) {
+            if (HijackUActivity.handshakefailedflag = true) {
                 if (phoneRxError < 20) {
-                    Toast.makeText(HijackU.this, "Handshake failed or Phone received error", Toast.LENGTH_SHORT)
+                    Toast.makeText(HijackUActivity.this, "Handshake failed or Phone received error", Toast.LENGTH_SHORT)
                         .show();
                 } else {
-                    Toast.makeText(HijackU.this, "Handshake failed or Headset connection issue", Toast.LENGTH_SHORT)
+                    Toast.makeText(HijackUActivity.this, "Handshake failed or Headset connection issue", Toast.LENGTH_SHORT)
                         .show();
                 }
             }
@@ -902,7 +900,7 @@ public class HijackU extends TabActivity {
                             myrec0.stop();
                             myrec0 = null;
                         }
-                        HijackU.exit();
+                        HijackUActivity.exit();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -914,16 +912,16 @@ public class HijackU extends TabActivity {
                 .show();
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_HEADSETHOOK) {
-//			Toast.makeText(HijackU.this, "Headset Hook", Toast.LENGTH_SHORT)
+//			Toast.makeText(HijackUActivity.this, "Headset Hook", Toast.LENGTH_SHORT)
 //			.show();
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
-//			Toast.makeText(HijackU.this, "Volume+", Toast.LENGTH_SHORT)
+//			Toast.makeText(HijackUActivity.this, "Volume+", Toast.LENGTH_SHORT)
 //			.show();
             mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, current++, 0);
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
-//			Toast.makeText(HijackU.this, "Volume-", Toast.LENGTH_SHORT)
+//			Toast.makeText(HijackUActivity.this, "Volume-", Toast.LENGTH_SHORT)
 //			.show();
             mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, current--, 0);
             return true;
